@@ -2,24 +2,21 @@
 
 namespace AreaCalculator.Models
 {
-    internal abstract class FigureBase
+    public abstract class FigureBase
     {
         protected List<FigureParameter> Parameters;
-        private List<FigureParameter> acceptebleParameterTypes;
 
         protected List<ParameterType> AcceptebleParameterTypes { get; set; }
 
-        protected FigureBase(List<FigureParameter> parameters)
+        protected FigureBase(List<FigureParameter>? parameters = null)
         {
             Parameters = parameters;
-            ParametersAreValid();
         }
 
         protected FigureBase(List<FigureParameter> parameters, List<ParameterType> acceptebleParameterTypes)
         {
             Parameters = parameters;
             AcceptebleParameterTypes = acceptebleParameterTypes;
-            ParametersAreValid();
         }
 
 

@@ -1,49 +1,55 @@
 ﻿using AreaCalculator.Constants;
 using AreaCalculator.Enums;
 using AreaCalculator.Models;
+using AreaCalculator.Models.Figure.Figures;
 using AreaCalculator.Servicies;
-using System.Composition;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AreaCalculator
 {
     public class Calculator : ICalculator
     {
-        private readonly IFigureIdentifyingServiceFactory _figureIdentifyingServiceFactory;
-
-        [ImportingConstructor]
-        public Calculator([Import] IFigureIdentifyingServiceFactory figureIdentifyingServiceFactory)
+        private readonly IFigureFactory _figureFactory;
+        
+        public Calculator()
         {
-            _figureIdentifyingServiceFactory = figureIdentifyingServiceFactory;
-        }
+            var serviceProvider = new ServiceCollection()
+                .AddTransient<IFigure, Circle>()
+                .AddTransient<IFigure, Triangle>()
+                .AddScoped<IFigureFactory, FigureFactory>()
+                .BuildServiceProvider();
 
+                _figureFactory = serviceProvider.GetService<IFigureFactory>();
+        }
+        
         public string CalculateArea(FigureType figureType, List<FigureParameter>? parameters = null)
         {
-            var figure = _figureIdentifyingServiceFactory.GetFigure(figureType, parameters);
-            return figure.CalculateArea().ToString();
+            var figure = _figureFactory.GetFigure(figureType, parameters);
+            return string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
         }
 
         public string CalculateArea(List<FigureParameter>? parameters = null)
         {
+            if (parameters == null || !parameters.Any())
+            {
+                return MessageTexts.CanNotCalculateAreaByEmptyPrameters;
+            }
+
             if (parameters.Count == 2 && parameters.All(e => e.Type == ParameterType.Side) && parameters.Distinct().Count() == 1)
             {
-                return String.Format(MessageTexts.AreaCalculationIsNotImplemented, FigureType.Square);
+                return string.Format(MessageTexts.AreaCalculationIsNotImplemented, FigureType.Square);
             }
 
             if (parameters.Count == 3)
             {
-                var figure = _figureIdentifyingServiceFactory.GetFigure(FigureType.Triangle, parameters);
-                return String.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
+                var figure = _figureFactory.GetFigure(FigureType.Triangle, parameters);
+                return string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
             }
 
             if (parameters.Count == 1 && parameters.First().Type == ParameterType.Radius)
             {
-                var figure = _figureIdentifyingServiceFactory.GetFigure(FigureType.Circle, parameters);
-                return String.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
-            }
-
-            if (parameters == null || !parameters.Any())
-            {
-                return MessageTexts.CanNotCalclulateAreaByEmptyPrameters;
+                var figure = _figureFactory.GetFigure(FigureType.Circle, parameters);
+                return string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
             }
 
             return MessageTexts.CanNotDetermineFigureType;

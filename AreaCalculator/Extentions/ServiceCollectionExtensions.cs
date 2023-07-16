@@ -10,7 +10,7 @@ namespace AreaCalculator.Extentions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             return services
-                .AddTransient<IFigureIdentifyingServiceFactory, FigureIdentifyingService>()
+                .AddTransient<IFigureFactory, FigureFactory>()
                 .AddTransient<ICalculator, Calculator>()
                 .AddTransient<IFigure, Circle>()
                 .AddTransient<IFigure, Triangle>();

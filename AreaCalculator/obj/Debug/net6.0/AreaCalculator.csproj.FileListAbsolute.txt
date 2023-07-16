@@ -1,4 +1,3 @@
-C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.csproj.AssemblyReference.cache
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.GeneratedMSBuildEditorConfig.editorconfig
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.AssemblyInfoInputs.cache
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.AssemblyInfo.cs

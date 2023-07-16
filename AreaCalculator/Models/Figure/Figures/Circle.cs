@@ -2,7 +2,7 @@
 
 namespace AreaCalculator.Models.Figure.Figures
 {
-    internal class Circle : FigureBase, IFigure
+    public class Circle : FigureBase, IFigure
     {
         private static List<ParameterType> acceptebleParameterTypes => new List<ParameterType> { ParameterType.Radius };
 
@@ -12,10 +12,14 @@ namespace AreaCalculator.Models.Figure.Figures
         {
         }
 
+        public Circle()
+        { 
+        }
+
         public double CalculateArea()
         {
             var radius = Convert.ToDouble(Parameters.First().Value);
-            return Math.Pow(radius, radius) * Math.PI;
+            return Math.Pow(radius, 2) * Math.PI;
         }
 
         protected override bool ParametersAreValid()

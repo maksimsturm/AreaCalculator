@@ -2,7 +2,7 @@
 
 namespace AreaCalculator.Models.Figure.Figures
 {
-    internal class Triangle : FigureBase, IFigure
+    public class Triangle : FigureBase, IFigure
     {
         private static List<ParameterType> acceptebleParameterTypes => new List<ParameterType> { ParameterType.Side };
 
@@ -13,6 +13,10 @@ namespace AreaCalculator.Models.Figure.Figures
         public Triangle(List<FigureParameter> parameters) : base(parameters, acceptebleParameterTypes)
         {
 
+        }
+
+        public Triangle()
+        { 
         }
 
         public double CalculateArea()

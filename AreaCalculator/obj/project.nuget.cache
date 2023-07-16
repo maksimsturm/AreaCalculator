@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "ubNA0ZL9A4sB5BKI/wkV8wCpmcLQYa6m2hJg2GrJsAodgzcEXwIX/Ah4HLQvSsSjXHVwhn0rJdllFplbKFx1Og==",
+  "success": true,
+  "projectFilePath": "C:\\AreaCalculatorSolution\\AreaCalculator\\AreaCalculator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Max\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\system.composition\\7.0.0\\system.composition.7.0.0.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\system.composition.attributedmodel\\7.0.0\\system.composition.attributedmodel.7.0.0.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\system.composition.convention\\7.0.0\\system.composition.convention.7.0.0.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\system.composition.hosting\\7.0.0\\system.composition.hosting.7.0.0.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\system.composition.runtime\\7.0.0\\system.composition.runtime.7.0.0.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\system.composition.typedparts\\7.0.0\\system.composition.typedparts.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

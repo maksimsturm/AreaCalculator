@@ -9,3 +9,4 @@ C:\AreaCalculatorSolution\AreaCalculator\bin\Debug\net6.0\AreaCalculator.pdb
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.dll
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\ref\AreaCalculator.dll
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.pdb
+C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.csproj.AssemblyReference.cache

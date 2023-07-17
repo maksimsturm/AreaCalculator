@@ -1,6 +1,7 @@
 ﻿using AreaCalculator.Models;
 using AreaCalculator.Models.Figure.Figures;
 using AreaCalculator.Servicies;
+using AreaCalculator.Servicies.SquareStrategies;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AreaCalculator.Extentions
@@ -14,6 +15,7 @@ namespace AreaCalculator.Extentions
                 .AddTransient<ISquareStrategy, TriangleSquareStrategy>()
                 .AddTransient<ISquareStrategyFactory, SquareStrategyFactory>()
                 .AddTransient<ICalculator, Calculator>()
+                .AddTransient<IFigureBuilder, FigureBuilder>()
                 .AddTransient<IFigure, Circle>()
                 .AddTransient<IFigure, Triangle>();
         }

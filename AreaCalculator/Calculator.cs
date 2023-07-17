@@ -1,16 +1,27 @@
 ﻿using AreaCalculator.Constants;
 using AreaCalculator.Enums;
+using AreaCalculator.Extentions;
 using AreaCalculator.Models;
-using AreaCalculator.Servicies.SquareStrategies;
+using AreaCalculator.Servicies;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AreaCalculator
 {
     public class Calculator : ICalculator
     {
-        private readonly FigureBuilder figureBuilder = new FigureBuilder();
+        private readonly IFigureBuilder _figureBuilder;
+
+        private readonly ISquareStrategyFactory _strategyFactory;
 
         public Calculator()
         {
+            var serviceCollection = new ServiceCollection()
+                .AddServices();
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            _figureBuilder = serviceProvider.GetService<IFigureBuilder>();
+            _strategyFactory = serviceProvider.GetService<ISquareStrategyFactory>();
         }
 
         public string CalculateArea(IFigure figure)
@@ -32,13 +43,13 @@ namespace AreaCalculator
 
             if (parameters.Count == 3)
             {
-                var figure = figureBuilder.GetFigure(FigureType.Triangle, parameters);
+                var figure = _figureBuilder.GetFigure(FigureType.Triangle, parameters);
                 return DeterminedFigureMessage(figure);
             }
 
             if (parameters.Count == 1 && parameters.First().Type == ParameterType.Radius)
             {
-                var figure = figureBuilder.GetFigure(FigureType.Circle, parameters);
+                var figure = _figureBuilder.GetFigure(FigureType.Circle, parameters);
                 return DeterminedFigureMessage(figure);
             }
 
@@ -47,8 +58,10 @@ namespace AreaCalculator
 
         private string DeterminedFigureMessage(IFigure figure)
         {
+            var squareStrategy = _strategyFactory.GetSquareStrategy(figure.CurrentFigureType);
+
             return figure.IsTheFigureValid()
-                ? string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea())
+                ? string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, squareStrategy.Calculate(figure))
                 : string.Format(MessageTexts.InvalidFigureParameters, figure.CurrentFigureType);
         }
     }

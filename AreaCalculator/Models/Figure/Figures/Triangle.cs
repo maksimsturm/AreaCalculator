@@ -15,15 +15,6 @@ namespace AreaCalculator.Models.Figure.Figures
             FigureType = FigureType.Triangle;
         }
 
-        public Triangle()
-        { 
-        }
-
-        public double CalculateArea()
-        {
-            return Calculate();
-        }
-
         public bool isThisTraingleRectangular()
         {
             foreach (var side in Sides)
@@ -53,5 +44,7 @@ namespace AreaCalculator.Models.Figure.Figures
             var longSide = Sides.OrderByDescending(e => e).First();
             return Sides.Where(e => e != longSide).Sum() > longSide;
         }
+
+        public List<FigureParameter> GetParameters() => Parameters;
     }
 }

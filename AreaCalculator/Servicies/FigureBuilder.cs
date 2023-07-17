@@ -1,28 +1,16 @@
 ﻿using AreaCalculator.Enums;
 using AreaCalculator.Models;
 using AreaCalculator.Models.Figure.Figures;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AreaCalculator.Servicies.SquareStrategies
 {
-    public class FigureBuilder
+    public class FigureBuilder : IFigureBuilder
     {
+        private readonly ISquareStrategyFactory _squareStrategyFactory;
 
-        private readonly IEnumerable<IFigure> _figures;
-
-        public FigureBuilder()
+        public FigureBuilder(ISquareStrategyFactory squareStrategyFactory)
         {
-            var serviceProvider = new ServiceCollection()
-                .AddTransient<IFigure, Circle>()
-                .AddTransient<IFigure, Triangle>()
-                .BuildServiceProvider();
-
-            _figures = serviceProvider.GetServices<IFigure>();
+            _squareStrategyFactory = squareStrategyFactory;
         }
 
         public IFigure? GetFigure(List<FigureParameter> parameters)
@@ -42,15 +30,8 @@ namespace AreaCalculator.Servicies.SquareStrategies
 
         public IFigure? GetFigure(FigureType figureType, List<FigureParameter> parameters)
         {
-            switch (figureType)
-            {
-                case FigureType.Circle:
-                    return new Circle(parameters);
-                case FigureType.Triangle:
-                    return new Triangle(parameters);
-                default:
-                    return _figures.FirstOrDefault(e => e.CurrentFigureType == figureType);
-            }
+            var squareStrategy = _squareStrategyFactory.GetSquareStrategy(figureType);
+            return squareStrategy.GetFigure(parameters);
         }
     }
 }

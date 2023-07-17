@@ -1,10 +1,12 @@
 using AreaCalculator;
 using AreaCalculator.Constants;
 using AreaCalculator.Enums;
+using AreaCalculator.Extentions;
 using AreaCalculator.Models;
 using AreaCalculator.Models.Figure.Figures;
-using AreaCalculator.Servicies.SquareStrategies;
+using AreaCalculator.Servicies;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -12,14 +14,13 @@ using Tests.Servicies;
 
 namespace Tests
 {
-    public class CommonTests
+    public class CalculatorTests
     {
         private ICalculator _areaCalculator => new Calculator();
 
         private CalculationService calculationService => new CalculationService();
 
         private ExpectedMessageBuilder messageBuilder => new ExpectedMessageBuilder();
-
 
         [Test]
         public void CalculateAreaWithNoPrameters()
@@ -132,7 +133,8 @@ namespace Tests
             return new List<FigureParameter>();
         }
 
-        private IFigure? GetFigure(FigureType figureType, List<FigureParameter> parameters) => new FigureBuilder().GetFigure(figureType, parameters);
+        private IFigure? GetFigure(FigureType figureType, List<FigureParameter> parameters) => 
+            figureType == FigureType.Circle ? new Circle(parameters) : new Triangle(parameters);
 
         private void CheckReceivedMessageSuccessfull(FigureType figureType, List<FigureParameter> parameters, string receivedMessage)
         {

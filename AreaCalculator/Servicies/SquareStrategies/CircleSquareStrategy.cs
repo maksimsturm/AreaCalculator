@@ -1,5 +1,6 @@
 ﻿using AreaCalculator.Enums;
 using AreaCalculator.Models;
+using AreaCalculator.Models.Figure.Figures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,15 @@ namespace AreaCalculator.Servicies
     {
         public FigureType FigureType => FigureType.Circle;
 
-        public double Calculate(List<FigureParameter> parameters)
+        public double Calculate(IFigure figure)
         {
-            var radius = parameters.First().Value;
+            var radius = figure.GetParameters().First().Value;
             return Math.Pow(radius, 2) * Math.PI;
         }
 
-        public double Calculate()
+        public IFigure GetFigure(List<FigureParameter> parameters)
         {
-            throw new NotImplementedException();
+            return new Circle(parameters);
         }
     }
 }

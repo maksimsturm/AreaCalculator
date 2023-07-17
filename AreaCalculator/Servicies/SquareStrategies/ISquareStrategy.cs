@@ -7,6 +7,8 @@ namespace AreaCalculator.Servicies
     {
         public FigureType FigureType { get; }
 
-        public double Calculate(List<FigureParameter> parameters);
+        public double Calculate(IFigure figure);
+
+        public IFigure GetFigure(List<FigureParameter> parameters);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AreaCalculator.Enums;
 using AreaCalculator.Models;
+using AreaCalculator.Models.Figure.Figures;
 
 namespace AreaCalculator.Servicies
 {
@@ -7,9 +8,9 @@ namespace AreaCalculator.Servicies
     {
         public FigureType FigureType => FigureType.Triangle;
 
-        public double Calculate(List<FigureParameter> parameters)
+        public double Calculate(IFigure figure)
         {
-            var sides = parameters.Select(e => Convert.ToDouble(e.Value)).ToList();
+            var sides = figure.GetParameters().Select(e => Convert.ToDouble(e.Value)).ToList();
             var halfOfPerimeter = sides.Sum() / 2;
             var product = 1D;
             for (var i = 0; i < sides.Count; i++)
@@ -17,6 +18,11 @@ namespace AreaCalculator.Servicies
                 product *= halfOfPerimeter - sides[i];
             }
             return Math.Sqrt(halfOfPerimeter * product);
+        }
+
+        public IFigure GetFigure(List<FigureParameter> parameters)
+        {
+            return new Triangle(parameters);
         }
     }
 }

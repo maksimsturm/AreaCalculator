@@ -15,7 +15,7 @@ using Tests.Servicies;
 
 namespace Tests
 {
-    public class ValidationTests
+    public class CommonTests
     {
 
         private ICalculator _areaCalculator => new Calculator();
@@ -24,12 +24,6 @@ namespace Tests
 
         private ExpectedMessageBuilder messageBuilder => new ExpectedMessageBuilder();
 
-
-        [SetUp]
-        public void Setup()
-        {
-            
-        }
 
         [Test]
         public void CalculateAreaWithNoPrameters()
@@ -90,15 +84,55 @@ namespace Tests
             CheckReceivedMessageSuccessfull(figureType, parameters, value);
         }
 
+        [Test]
+        [TestCase(FigureType.Circle)]
+        [TestCase(FigureType.Triangle)]
+        public void CalculateAreaWithInvalidParameters(FigureType figureType)
+        {
+            // Arrange
+            var parameters = figureType == FigureType.Circle 
+                ? new List<FigureParameter>() { new FigureParameter(ParameterType.Side, new Random().Next(4, 10)) } 
+                : new List<FigureParameter>() 
+                {
+                    new FigureParameter(ParameterType.Side, 4),
+                    new FigureParameter(ParameterType.Side, 5),
+                    new FigureParameter(ParameterType.Side, 16)
+                };
+
+
+            // Act
+            var value = _areaCalculator.CalculateArea(figureType, parameters);
+
+            // Assert
+            value.Should().Be(messageBuilder.ForFigureType(figureType).GetInvalidFigureParametersMessage());
+        }
+
         private List<FigureParameter> GetFigureParameters(FigureType figureType)
         {
-            return figureType == FigureType.Circle
-                ? new List<FigureParameter>() { new FigureParameter(ParameterType.Radius, new Random().Next(10, 100)) }
-                : new List<FigureParameter>() {
-                    new FigureParameter(ParameterType.Side, new Random().Next(10, 100)),
-                    new FigureParameter(ParameterType.Side, new Random().Next(10, 100)),
-                    new FigureParameter(ParameterType.Side, new Random().Next(10, 100)),
-                };
+            if (figureType == FigureType.Circle)
+            {
+                return new List<FigureParameter>() { new FigureParameter(ParameterType.Radius, new Random().Next(10, 100)) };
+            }
+
+            if (figureType == FigureType.Triangle)
+            {
+                IFigure figure = new Triangle();
+                var parameters = new List<FigureParameter>();
+                while (!figure.IsTheFigureValid())
+                {
+                    parameters = new List<FigureParameter>() 
+                    {
+                        new FigureParameter(ParameterType.Side, new Random().Next(10, 200)),
+                        new FigureParameter(ParameterType.Side, new Random().Next(10, 200)),
+                        new FigureParameter(ParameterType.Side, new Random().Next(10, 200)) 
+                    };
+                    figure = new Triangle(parameters);
+                }
+
+                return parameters;
+            }
+
+            return new List<FigureParameter>();
         }
 
         private void CheckReceivedMessageSuccessfull(FigureType figureType, List<FigureParameter> parameters, string receivedMessage)

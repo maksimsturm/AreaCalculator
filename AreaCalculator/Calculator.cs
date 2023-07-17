@@ -25,7 +25,7 @@ namespace AreaCalculator
         public string CalculateArea(FigureType figureType, List<FigureParameter>? parameters = null)
         {
             var figure = _figureFactory.GetFigure(figureType, parameters);
-            return string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
+            return DeterminedFigureMessage(figure);
         }
 
         public string CalculateArea(List<FigureParameter>? parameters = null)
@@ -43,16 +43,23 @@ namespace AreaCalculator
             if (parameters.Count == 3)
             {
                 var figure = _figureFactory.GetFigure(FigureType.Triangle, parameters);
-                return string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
+                return DeterminedFigureMessage(figure);
             }
 
             if (parameters.Count == 1 && parameters.First().Type == ParameterType.Radius)
             {
                 var figure = _figureFactory.GetFigure(FigureType.Circle, parameters);
-                return string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea());
+                return DeterminedFigureMessage(figure);
             }
 
             return MessageTexts.CanNotDetermineFigureType;
+        }
+
+        private string DeterminedFigureMessage(IFigure figure)
+        {
+            return figure.IsTheFigureValid()
+                ? string.Format(MessageTexts.SuccesfullCalculatedArea, figure.CurrentFigureType, figure.CalculateArea())
+                : string.Format(MessageTexts.InvalidFigureParameters, figure.CurrentFigureType);
         }
     }
 }

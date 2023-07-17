@@ -1,6 +1,5 @@
 ﻿using AreaCalculator.Enums;
 using AreaCalculator.Models;
-using System.Composition;
 
 namespace AreaCalculator.Servicies
 {
@@ -32,7 +31,7 @@ namespace AreaCalculator.Servicies
 
         public IFigure? GetFigure(FigureType figureType, List<FigureParameter> parameters)
         {
-            var figure = _figures.First(e => e.CurrentFigureType == figureType);
+            var figure = _figures.FirstOrDefault(e => e.CurrentFigureType == figureType);
             if (figure == null && parameters != null)
             {
                 return GetFigure(parameters);

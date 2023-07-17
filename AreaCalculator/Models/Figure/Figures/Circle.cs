@@ -22,7 +22,7 @@ namespace AreaCalculator.Models.Figure.Figures
             return Math.Pow(radius, 2) * Math.PI;
         }
 
-        protected override bool ParametersAreValid()
+        public bool IsTheFigureValid()
         {
             return Parameters.Count == 1 && Parameters.All(e => e.Type == acceptebleParameterTypes.First());
         }

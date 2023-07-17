@@ -30,24 +30,34 @@ namespace AreaCalculator.Models.Figure.Figures
             return Math.Sqrt(halfOfPerimeter * product);
         }
 
-        protected override bool ParametersAreValid()
+        public bool isThisTraingleRectangular()
         {
-            return Parameters.Count == 3 && Parameters.All(e => e.Type == acceptebleParameterTypes.First());
-        }
-
-        public bool IsItRightTriangle()
-        {
-            for (var i = 0; i < Sides.Count; i++)
+            foreach (var side in Sides)
             {
-                var currentSide = Sides[i];
-                var otherSides = Sides.Where((v, j) => j != i).ToList();
-                if (Math.Pow(currentSide, 2) == Math.Pow(otherSides.First(), 2) + Math.Pow(otherSides.Last(), 2))
+                var otherSides = Sides.Where(e => e != side);
+                if (Math.Sqrt(side) == Math.Sqrt(otherSides.First()) + Math.Sqrt(otherSides.Last()))
                 {
-                    return true;
+                    return true;                    
                 }
             }
 
             return false;
+        }
+
+        public bool IsTheFigureValid()
+        {
+            if (Parameters == null)
+            {
+                return false;
+            }
+
+            if (Parameters.Count != 3 && !Parameters.All(e => e.Type == acceptebleParameterTypes.First()))
+            {
+                return false;
+            }
+
+            var longSide = Sides.OrderByDescending(e => e).First();
+            return Sides.Where(e => e != longSide).Sum() > longSide;
         }
     }
 }

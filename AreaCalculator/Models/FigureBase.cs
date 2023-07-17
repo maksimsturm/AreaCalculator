@@ -18,11 +18,5 @@ namespace AreaCalculator.Models
             Parameters = parameters;
             AcceptebleParameterTypes = acceptebleParameterTypes;
         }
-
-
-        protected virtual bool ParametersAreValid()
-        {
-            return Parameters.All(e => AcceptebleParameterTypes.Contains(e.Type));
-        }
     }
 }

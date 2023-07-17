@@ -34,5 +34,10 @@ namespace Tests.Servicies
         {
             return string.Format(MessageTexts.AreaCalculationIsNotImplemented, _figureType);
         }
+
+        public string GetInvalidFigureParametersMessage()
+        {
+            return string.Format(MessageTexts.InvalidFigureParameters, _figureType);
+        }
     }
 }

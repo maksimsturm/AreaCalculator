@@ -14,6 +14,8 @@ namespace AreaCalculator.Constants
 
         public const string AreaCalculationIsNotImplemented = "Area calclulation for {0} figure type is not implemented yet.";
 
+        public const string InvalidFigureParameters = "Invalid parameters for figure: {0}";
+
         public const string CanNotCalculateAreaByEmptyPrameters = "Can not calclulate area by empty parameters";
 
         public const string CanNotDetermineFigureType = "Can not determine figure type by inserted parameters.";

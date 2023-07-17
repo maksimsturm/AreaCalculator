@@ -3,21 +3,17 @@ using AreaCalculator.Constants;
 using AreaCalculator.Enums;
 using AreaCalculator.Models;
 using AreaCalculator.Models.Figure.Figures;
-using AreaCalculator.Servicies;
+using AreaCalculator.Servicies.SquareStrategies;
 using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Tests.Servicies;
 
 namespace Tests
 {
     public class CommonTests
     {
-
         private ICalculator _areaCalculator => new Calculator();
 
         private CalculationService calculationService => new CalculationService();
@@ -76,9 +72,10 @@ namespace Tests
         {
             // Arrange
             var parameters = GetFigureParameters(figureType);
+            var figure = GetFigure(figureType, parameters);
 
             // Act
-            var value = _areaCalculator.CalculateArea(figureType, parameters);
+            var value = _areaCalculator.CalculateArea(figure);
 
             // Assert
             CheckReceivedMessageSuccessfull(figureType, parameters, value);
@@ -99,9 +96,11 @@ namespace Tests
                     new FigureParameter(ParameterType.Side, 16)
                 };
 
+            var figure = GetFigure(figureType, parameters);
+
 
             // Act
-            var value = _areaCalculator.CalculateArea(figureType, parameters);
+            var value = _areaCalculator.CalculateArea(figure);
 
             // Assert
             value.Should().Be(messageBuilder.ForFigureType(figureType).GetInvalidFigureParametersMessage());
@@ -116,9 +115,8 @@ namespace Tests
 
             if (figureType == FigureType.Triangle)
             {
-                IFigure figure = new Triangle();
                 var parameters = new List<FigureParameter>();
-                while (!figure.IsTheFigureValid())
+                while (!new Triangle(parameters).IsTheFigureValid())
                 {
                     parameters = new List<FigureParameter>() 
                     {
@@ -126,7 +124,6 @@ namespace Tests
                         new FigureParameter(ParameterType.Side, new Random().Next(10, 200)),
                         new FigureParameter(ParameterType.Side, new Random().Next(10, 200)) 
                     };
-                    figure = new Triangle(parameters);
                 }
 
                 return parameters;
@@ -134,6 +131,8 @@ namespace Tests
 
             return new List<FigureParameter>();
         }
+
+        private IFigure? GetFigure(FigureType figureType, List<FigureParameter> parameters) => new FigureBuilder().GetFigure(figureType, parameters);
 
         private void CheckReceivedMessageSuccessfull(FigureType figureType, List<FigureParameter> parameters, string receivedMessage)
         {

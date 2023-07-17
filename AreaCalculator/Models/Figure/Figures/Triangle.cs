@@ -12,7 +12,7 @@ namespace AreaCalculator.Models.Figure.Figures
 
         public Triangle(List<FigureParameter> parameters) : base(parameters, acceptebleParameterTypes)
         {
-
+            FigureType = FigureType.Triangle;
         }
 
         public Triangle()
@@ -21,13 +21,7 @@ namespace AreaCalculator.Models.Figure.Figures
 
         public double CalculateArea()
         {
-            var halfOfPerimeter = Sides.Sum() / 2;
-            var product = 1D;
-            for (var i = 0; i < Sides.Count; i++)
-            {
-                product *= halfOfPerimeter - Sides[i];
-            }
-            return Math.Sqrt(halfOfPerimeter * product);
+            return Calculate();
         }
 
         public bool isThisTraingleRectangular()
@@ -46,7 +40,7 @@ namespace AreaCalculator.Models.Figure.Figures
 
         public bool IsTheFigureValid()
         {
-            if (Parameters == null)
+            if (Parameters == null || !Parameters.Any())
             {
                 return false;
             }

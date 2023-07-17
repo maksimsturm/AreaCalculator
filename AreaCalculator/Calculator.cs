@@ -1,30 +1,20 @@
 ﻿using AreaCalculator.Constants;
 using AreaCalculator.Enums;
 using AreaCalculator.Models;
-using AreaCalculator.Models.Figure.Figures;
-using AreaCalculator.Servicies;
-using Microsoft.Extensions.DependencyInjection;
+using AreaCalculator.Servicies.SquareStrategies;
 
 namespace AreaCalculator
 {
     public class Calculator : ICalculator
     {
-        private readonly IFigureFactory _figureFactory;
-        
+        private readonly FigureBuilder figureBuilder = new FigureBuilder();
+
         public Calculator()
         {
-            var serviceProvider = new ServiceCollection()
-                .AddTransient<IFigure, Circle>()
-                .AddTransient<IFigure, Triangle>()
-                .AddScoped<IFigureFactory, FigureFactory>()
-                .BuildServiceProvider();
-
-                _figureFactory = serviceProvider.GetService<IFigureFactory>();
         }
-        
-        public string CalculateArea(FigureType figureType, List<FigureParameter>? parameters = null)
+
+        public string CalculateArea(IFigure figure)
         {
-            var figure = _figureFactory.GetFigure(figureType, parameters);
             return DeterminedFigureMessage(figure);
         }
 
@@ -42,13 +32,13 @@ namespace AreaCalculator
 
             if (parameters.Count == 3)
             {
-                var figure = _figureFactory.GetFigure(FigureType.Triangle, parameters);
+                var figure = figureBuilder.GetFigure(FigureType.Triangle, parameters);
                 return DeterminedFigureMessage(figure);
             }
 
             if (parameters.Count == 1 && parameters.First().Type == ParameterType.Radius)
             {
-                var figure = _figureFactory.GetFigure(FigureType.Circle, parameters);
+                var figure = figureBuilder.GetFigure(FigureType.Circle, parameters);
                 return DeterminedFigureMessage(figure);
             }
 

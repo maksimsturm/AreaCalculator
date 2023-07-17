@@ -6,10 +6,11 @@ namespace AreaCalculator.Models.Figure.Figures
     {
         private static List<ParameterType> acceptebleParameterTypes => new List<ParameterType> { ParameterType.Radius };
 
-        FigureType IFigure.CurrentFigureType => FigureType.Circle;
+        public FigureType CurrentFigureType => FigureType.Circle;
 
         public Circle(List<FigureParameter> parameters) : base(parameters, acceptebleParameterTypes)
         {
+            FigureType = FigureType.Circle;
         }
 
         public Circle()
@@ -18,8 +19,7 @@ namespace AreaCalculator.Models.Figure.Figures
 
         public double CalculateArea()
         {
-            var radius = Convert.ToDouble(Parameters.First().Value);
-            return Math.Pow(radius, 2) * Math.PI;
+            return Calculate();
         }
 
         public bool IsTheFigureValid()

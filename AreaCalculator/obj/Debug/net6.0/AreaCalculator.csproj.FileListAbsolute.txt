@@ -1,12 +1,11 @@
-C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.GeneratedMSBuildEditorConfig.editorconfig
-C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.AssemblyInfoInputs.cache
-C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.AssemblyInfo.cs
-C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.csproj.CoreCompileInputs.cache
 C:\AreaCalculatorSolution\AreaCalculator\bin\Debug\net6.0\AreaCalculator.deps.json
 C:\AreaCalculatorSolution\AreaCalculator\bin\Debug\net6.0\AreaCalculator.dll
 C:\AreaCalculatorSolution\AreaCalculator\bin\Debug\net6.0\ref\AreaCalculator.dll
 C:\AreaCalculatorSolution\AreaCalculator\bin\Debug\net6.0\AreaCalculator.pdb
+C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.AssemblyInfoInputs.cache
+C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.AssemblyInfo.cs
+C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.csproj.CoreCompileInputs.cache
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.dll
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\ref\AreaCalculator.dll
 C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.pdb
-C:\AreaCalculatorSolution\AreaCalculator\obj\Debug\net6.0\AreaCalculator.csproj.AssemblyReference.cache

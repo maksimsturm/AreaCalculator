@@ -2,7 +2,7 @@
 
 namespace AreaCalculator.Models.Figure.Figures
 {
-    internal class Triangle : FigureBase, IFigure
+    public class Triangle : FigureBase, IFigure
     {
         private static List<ParameterType> acceptebleParameterTypes => new List<ParameterType> { ParameterType.Side };
 
@@ -12,38 +12,39 @@ namespace AreaCalculator.Models.Figure.Figures
 
         public Triangle(List<FigureParameter> parameters) : base(parameters, acceptebleParameterTypes)
         {
-
+            FigureType = FigureType.Triangle;
         }
 
-        public double CalculateArea()
+        public bool isThisTraingleRectangular()
         {
-            var halfOfPerimeter = Sides.Sum() / 2;
-            var product = 1D;
-            for (var i = 0; i < Sides.Count; i++)
+            foreach (var side in Sides)
             {
-                product *= halfOfPerimeter - Sides[i];
-            }
-            return Math.Sqrt(halfOfPerimeter * product);
-        }
-
-        protected override bool ParametersAreValid()
-        {
-            return Parameters.Count == 3 && Parameters.All(e => e.Type == acceptebleParameterTypes.First());
-        }
-
-        public bool IsItRightTriangle()
-        {
-            for (var i = 0; i < Sides.Count; i++)
-            {
-                var currentSide = Sides[i];
-                var otherSides = Sides.Where((v, j) => j != i).ToList();
-                if (Math.Pow(currentSide, 2) == Math.Pow(otherSides.First(), 2) + Math.Pow(otherSides.Last(), 2))
+                var otherSides = Sides.Where(e => e != side);
+                if (Math.Sqrt(side) == Math.Sqrt(otherSides.First()) + Math.Sqrt(otherSides.Last()))
                 {
-                    return true;
+                    return true;                    
                 }
             }
 
             return false;
         }
+
+        public bool IsTheFigureValid()
+        {
+            if (Parameters == null || !Parameters.Any())
+            {
+                return false;
+            }
+
+            if (Parameters.Count != 3 && !Parameters.All(e => e.Type == acceptebleParameterTypes.First()))
+            {
+                return false;
+            }
+
+            var longSide = Sides.OrderByDescending(e => e).First();
+            return Sides.Where(e => e != longSide).Sum() > longSide;
+        }
+
+        public List<FigureParameter> GetParameters() => Parameters;
     }
 }

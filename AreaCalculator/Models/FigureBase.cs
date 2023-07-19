@@ -1,31 +1,21 @@
 ﻿using AreaCalculator.Enums;
+using AreaCalculator.Servicies;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AreaCalculator.Models
 {
-    internal abstract class FigureBase
+    public abstract class FigureBase
     {
         protected List<FigureParameter> Parameters;
-        private List<FigureParameter> acceptebleParameterTypes;
+
+        protected FigureType FigureType;
 
         protected List<ParameterType> AcceptebleParameterTypes { get; set; }
-
-        protected FigureBase(List<FigureParameter> parameters)
-        {
-            Parameters = parameters;
-            ParametersAreValid();
-        }
 
         protected FigureBase(List<FigureParameter> parameters, List<ParameterType> acceptebleParameterTypes)
         {
             Parameters = parameters;
             AcceptebleParameterTypes = acceptebleParameterTypes;
-            ParametersAreValid();
-        }
-
-
-        protected virtual bool ParametersAreValid()
-        {
-            return Parameters.All(e => AcceptebleParameterTypes.Contains(e.Type));
         }
     }
 }

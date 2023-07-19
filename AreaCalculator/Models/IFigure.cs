@@ -6,6 +6,8 @@ namespace AreaCalculator.Models
     {
         public FigureType CurrentFigureType { get; }
 
-        public double CalculateArea();
+        public bool IsTheFigureValid();
+
+        public List<FigureParameter> GetParameters();
     }
 }
